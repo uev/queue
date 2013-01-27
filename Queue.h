@@ -38,8 +38,12 @@ Queue<T>::Queue(int s)
 template<class T>
 bool Queue<T>::Empty()
 {
-	if (size == ltQ) {
-		return true;
+	if (frQ == ltQ) {
+		if (ltQ < (int)size) {
+			return true;
+		}else { 
+			return false;
+		};
 	} else {
 		return false;
 	}
@@ -49,15 +53,70 @@ bool Queue<T>::Empty()
 template<class T>
 void Queue<T>::Push(const T &p)
 {
-	if (size != ltQ) {
+	if (size != ltQ )  {
 		qPtr[++ltQ] = p;
+	} else {
+		if ((ltQ+frQ) > (int)size) {
+			//sheeft
+			int sheeft=frQ,i=0,ltQ=0;
+			for(frQ=1;frQ<(int)size;frQ++){
+				if (frQ < ((int)size - sheeft)) {
+					qPtr[frQ]=qPtr[frQ+sheeft];
+					ltQ+=1;
+				}else {
+					qPtr[frQ]=0;
+				}
+			}
+		} else {
+			printf("Sorry. Buffer is full");
+		}
 	}
 }
+
+template<class T>
+void Queue<T>::Pop()
+{
+	if (frQ == ltQ) { 
+		printf("\nQueue is empty\n");
+		qPtr[frQ] = 0;
+		qPtr[ltQ] = 0;
+	} else {
+		qPtr[frQ] = 0;
+		frQ+=1;
+	}
+}
+
 
 template<class T>
 T& Queue<T>::Back(){
 	return qPtr[ltQ];
 };
+
+
+template<class T>
+T& Queue<T>::Front(){
+	return qPtr[frQ+1];
+};
+
+
+
+
+template<class T>
+unsigned int Queue<T>::Size()
+{
+	return ltQ-frQ;
+}
+
+
+template<class T>
+void Queue<T>::Clear()
+{
+	int i;
+	for (i=0; i < int(size);i++){
+		qPtr[i]=0;
+	}
+	printf("\nTry clear queue");
+}
 
 
 
