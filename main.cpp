@@ -3,24 +3,28 @@
 
 #include "stdafx.h"
 #include "string.h"
-
 #include "Queue.h"
-
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Queue<int> q(100);
+	Queue<int> q;
 	int g;
 	int i = 0;
 	g=50;
 	q.Push(g);
-	printf("\nFront: %d",q.Front());
-	printf("\nBack: %d",q.Back());
-	printf("\nSize: %d", q.Size());
-	q.Clear();
-	printf("\nFront: %d",q.Front());
-	printf("\nBack: %d",q.Back());
-	printf("\nSize: %d", q.Size());
+	if (q.Size() > 0){
+		printf("\nFront: %d",q.Front());
+		printf("\nBack: %d",q.Back());
+		printf("\nSize: %d", q.Size());
+		q.Clear();
+		if (q.Size()>0) {
+			printf("\nFront: %d",q.Front());
+			printf("\nBack: %d",q.Back());
+			printf("\nSize: %d", q.Size());
+		} else {
+			puts("Queue is empty");
+		}
+	}
 	g=30;
 	printf("\nPush %d elements",g);
 	for (i = 1 ; i < g; i++) {
@@ -38,4 +42,3 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("\nSize: %d", q.Size());
 	return 0;
 }
-
